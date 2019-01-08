@@ -7,24 +7,67 @@
 //
 
 #import <Foundation/Foundation.h>
-
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
         // 255 unit long array of characters
         char inputChars[255];
+        char inputNum[255];
         
-        printf("Input a string: ");
-        // limit input to max 255 characters
-        fgets(inputChars, 255, stdin);
+//upper
+         int i = 0;
         
-        // print as a c string
-        printf("Your string is %s\n", inputChars);
+        while(i == 0){
+            NSLog(@"Input a number from 1-6 ,and 7 to exit to modify the string:");
+            fgets(inputNum, 255, stdin);
+            NSString * num1 = [NSString stringWithUTF8String:inputNum];
+            NSNumber * num =  @([num1 intValue]);
+            if([num isEqual: @7]){
+                NSLog(@"goodbye");
+                break;
+                
+            }
+            NSLog(@"Input string to modify");
+            fgets(inputChars, 255, stdin);
+            NSString * inputChar =  [NSString  stringWithUTF8String:inputChars];
+            //upper
+            if([num isEqual: @1]){
+                NSString* upper =[inputChar uppercaseString];
+                NSLog(@"Your uppercase's string is %@\n", upper);
+                //lower
+            }else if([num isEqual: @2]){
+                NSLog(@"Your uppercase's string is %@\n",[inputChar lowercaseString]);
+                
+            }
+            else if([num isEqual:@3]){
+                NSNumber *numCheck = @([inputChar intValue]);
+                if(numCheck){
+                    NSLog(@"successful, your result input is %@", numCheck);
+                }else{
+                    NSLog(@"this is not a number");
+                }
+            }else if([num isEqual: @4]){
+                inputChar =[inputChar stringByAppendingString:@",eh?"];
+                NSLog(@"Your result string is %@\n", inputChar);
+        // respond
+            }else if([num isEqual: @5]){
+                if([inputChar hasSuffix:@"!"]){
+                    NSLog(@"Whoa, calm down!");
+                }else if([inputChar hasSuffix:@"?"]){
+                    NSLog(@"I don't know");
+                }
+                    
+                
+        // de-space-it
+            }else if([num isEqual: @6]){
+                NSString *new =[inputChar stringByReplacingOccurrencesOfString:@" " withString:@"-"];
+                NSLog(@"Your result string is %@\n", new);
+                
+            }
+            
+        }
         
-        // convert char array to an NSString object
-        NSString *inputString = [NSString stringWithUTF8String:inputChars];
+
         
-        // print NSString object
-        NSLog(@"Input was: %@", inputString);
     }
     return 0;
 }
